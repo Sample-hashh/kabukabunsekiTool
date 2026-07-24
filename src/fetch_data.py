@@ -7,5 +7,5 @@ def fetch_stock_data(ticker:str,period:str = "1y",):
     period=period,
     progress=False,
   )
-
+  
   return df
