@@ -8,3 +8,23 @@ def add_moving_average(df: pd.DataFrame) -> pd.DataFrame:
   df["MA75"] = df["Close"].rolling(window=5).mean()
 
   return df
+
+def add_rsi(df:pd.DataFrame,period:int=14) -> pd.DataFrame:
+  """RSIを追加する"""
+
+  #前日との差分
+  delta = df["Close"].diff()
+  #上昇した日だけ取り出す
+  gain = delta.clip(lower=0)
+  #下落した日だけ取り出す
+  loss = -delta.clip(upper=0)
+  #14日平均を求める
+  avg_gain = gain.rolling(14).mean()
+  avg_loss = loss.rolling(14).mean()
+  #rsを計算
+  rs = avg_gain / avg_loss
+  #RSIを計算
+  df["RSI"] = 100 - (100/(1 + rs))
+
+  return df
+
