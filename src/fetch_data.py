@@ -7,5 +7,9 @@ def fetch_stock_data(ticker:str,period:str = "1y",):
     period=period,
     progress=False,
   )
-  
+
+  # MultiIndexを1階層にする
+  if df.columns.nlevels > 1:
+    df.columns = df.columns.get_level_values(0)
+
   return df

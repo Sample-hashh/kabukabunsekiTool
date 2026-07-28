@@ -31,19 +31,30 @@ def add_rsi(df:pd.DataFrame,period:int=14) -> pd.DataFrame:
 def add_macd(df:pd.DataFrame) -> pd.DataFrame:
   """MACDを追加する"""
   ema12 = df["Close"].ewm(span=12,adjust=False).mean()
-
   ema26 = df["Close"].ewm(span=26,adjust=False).mean()
 
   df["MACD"] = ema12 - ema26
-
   df["Signal"] = df["MACD"].ewm(span=9,adjust=False).mean()
-  
-
   df["Histogram"] = df["MACD"] - df["Signal"]
+  return df
+
+def add_volume_analysis(df:pd.DataFrame) -> pd.DataFrame:
+  """出来高分析を追加する"""
+
+  #20日平均出来高
+  df["Volume_MA20"] = df["Volume"].rolling(window=20).mean()
+
+  print(type(df["Volume"]))
+  print(type(df["Volume_MA20"]))
+  print(df.columns.tolist())
+
+
+  #今日の出来高は平均の何倍か
+  df["Volume_Ratio"] = df["Volume"] / df["Volume_MA20"]
 
   return df
 
-  
+
 
 
 
