@@ -54,6 +54,18 @@ def add_volume_analysis(df:pd.DataFrame) -> pd.DataFrame:
 
   return df
 
+def add_breakout(df:pd.DataFrame,period:int=20) -> pd.DataFrame:
+  """高値更新(ブレイクアウト)を判定する"""
+
+  #過去20日の最高値
+  df["High20"] = df["High"].rolling(window=period).max()
+  #昨日までの最高値
+  previous_high = df["High20"].shift(1)
+  #高値更新
+  df["Breakout"] = df["Close"] > previous_high
+
+  return df
+
 
 
 
