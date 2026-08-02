@@ -44,11 +44,6 @@ def add_volume_analysis(df:pd.DataFrame) -> pd.DataFrame:
   #20日平均出来高
   df["Volume_MA20"] = df["Volume"].rolling(window=20).mean()
 
-  print(type(df["Volume"]))
-  print(type(df["Volume_MA20"]))
-  print(df.columns.tolist())
-
-
   #今日の出来高は平均の何倍か
   df["Volume_Ratio"] = df["Volume"] / df["Volume_MA20"]
 

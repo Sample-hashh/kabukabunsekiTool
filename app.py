@@ -1,3 +1,4 @@
+import pandas as pd
 from src.fetch_data import fetch_stock_data
 from src.indicators import (
     add_moving_average,
@@ -8,27 +9,35 @@ from src.indicators import (
 )
 from src.signals import detect_golden_cross
 from src.signals import detect_dead_cross
+from src.signals import detect_pullback
+from src.ranking import create_ranking
+from config.tickers import TICKERS
 
-df = fetch_stock_data("7203.T")
-
-df = add_moving_average(df)
-df = add_rsi(df)
-df= add_macd(df)
-df = add_volume_analysis(df)
-df = add_breakout(df)
-
-
-df = detect_golden_cross(df)
-df = detect_dead_cross(df)
+results = []
+for ticker in TICKERS:
+    df = fetch_stock_data(ticker)
+    df = add_moving_average(df)
+    df = add_rsi(df)
+    df= add_macd(df)
+    df = add_volume_analysis(df)
+    df = add_breakout(df)
 
 
-#print(df.tail(20))
-print(
-    df[
-        [
-            "Close",
-            "High20",
-            "Breakout",
-        ]
-    ].tail(20)
-)
+    df = detect_golden_cross(df)
+    df = detect_dead_cross(df)
+
+    df = detect_pullback(df)
+
+    df = create_ranking(df)
+    #最新日のデータを取得
+    latest = df.iloc[-1]
+    results.append(
+    {
+        "Ticker": ticker,
+        "Score": latest["Score"],
+    }
+    )
+
+ranking_df = pd.DataFrame(results)
+
+print(ranking_df)
