@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 from src.fetch_data import fetch_stock_data
 from src.indicators import (
     add_moving_average,
@@ -13,31 +14,35 @@ from src.signals import detect_pullback
 from src.ranking import create_ranking
 from config.tickers import TICKERS
 
-results = []
-for ticker in TICKERS:
-    df = fetch_stock_data(ticker)
-    df = add_moving_average(df)
-    df = add_rsi(df)
-    df= add_macd(df)
-    df = add_volume_analysis(df)
-    df = add_breakout(df)
+def view_ranking() -> pd.DataFrame:
+  results = []
+  for ticker in TICKERS:
+      df = fetch_stock_data(ticker)
+      df = add_moving_average(df)
+      df = add_rsi(df)
+      df= add_macd(df)
+      df = add_volume_analysis(df)
+      df = add_breakout(df)
 
 
-    df = detect_golden_cross(df)
-    df = detect_dead_cross(df)
+      df = detect_golden_cross(df)
+      df = detect_dead_cross(df)
 
-    df = detect_pullback(df)
+      df = detect_pullback(df)
 
-    df = create_ranking(df)
-    #最新日のデータを取得
-    latest = df.iloc[-1]
-    results.append(
-    {
-        "Ticker": ticker,
-        "Score": latest["Score"],
-    }
-    )
+      df = create_ranking(df)
+      #最新日のデータを取得
+      latest = df.iloc[-1]
+      results.append(
+      {
+          "Ticker": ticker,
+          "Score": latest["Score"],
+      }
+      )
+  ranking_df = pd.DataFrame(results)
+  return ranking_df
 
-ranking_df = pd.DataFrame(results)
+st.title("📈 株価分析アプリ")
 
-print(ranking_df)
+st.write("こんにちは！")
+st.dataframe(view_ranking())
