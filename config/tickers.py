@@ -1,7 +1,16 @@
+import pandas as pd
+
+# CSV読み込み（タブ区切りの場合）
+df = pd.read_csv(
+    r"..\data\nikkei225.csv",
+    encoding="cp932",
+    sep=","
+)
+
+# yfinance用ティッカー作成
 NIKEI = [
-    "1332.T",  # ニッスイ
-    "1333.T",  # マルハニチロ
-    "1605.T",  # INPEX
-    "1721.T",  # コムシスHD
-    "1801.T",  # 大成建設
+    f"{code}.T"
+    for code in df["コード"]
 ]
+
+print(NIKEI)
