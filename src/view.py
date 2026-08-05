@@ -13,6 +13,9 @@ NIKEIS = {}
 
 def view_GCDC() -> pd.DataFrame:
   """ゴールデンクロスとデッドクロスを判定する"""
+
+  # GC・DCで最終的に4種類に並び替えられたDFのリストを格納するリスト
+  signal_list = []
   NIKEIS = get_nikkei_tickers()
   results = []
 
@@ -52,16 +55,52 @@ def view_GCDC() -> pd.DataFrame:
   pd.set_option("display.max_columns", None)
   # 横幅を広げる
   pd.set_option("display.width", 2000) 
-
+  # リストをデータフレームに変換
   result_df = pd.DataFrame(results)
 
   # 出来高順に並び替える
   df_volume = Volume_sorted(result_df)
 
-  return df_volume
+  signal_list = Syubetu_view(df_volume)
+
+  return signal_list
 
 
 def Volume_sorted(result_df: pd.DataFrame) -> pd.DataFrame:
   """出来高順に並び替えたデータフレームを返す"""
   df_volume_sorted = result_df.sort_values(by="出来高",ascending=False)
   return df_volume_sorted
+
+def Syubetu_view(result_df: pd.DataFrame) -> pd.DataFrame:
+  """指定したシグナルごとに表示する"""
+  df_signal = []
+  df_signals = [
+    "ゴールデンクロス_5日＆25日",
+    "ゴールデンクロス_25日＆75日",
+    "デッドクロス_5日＆25日",
+    "デッドクロス_25日＆75日",
+]
+  for signal in df_signals:
+    print("\n==============================")
+    print(signal)
+    print("==============================")
+
+    df_signal.append(result_df[result_df[signal]])
+    return signal
+    
+
+    # print(
+    #     df_signal[
+    #         [
+    #             "銘柄",
+    #             "銘柄名",
+    #             "終値",
+    #             "出来高",
+    #             "MA5",
+    #             "MA25",
+    #             "MA75"
+    #         ]
+    #     ]
+    # )
+
+
