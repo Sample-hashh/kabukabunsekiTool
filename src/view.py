@@ -36,7 +36,7 @@ def view_GCDC() -> pd.DataFrame:
 
   # GC・DCで最終的に4種類に並び替えられたDFのリストを格納するリスト
   signal_list = []
-  NIKEIS = test_get_nikkei_tickers()
+  NIKEIS = get_nikkei_tickers()
   results = []
 
   for ticker, name in NIKEIS.items():
