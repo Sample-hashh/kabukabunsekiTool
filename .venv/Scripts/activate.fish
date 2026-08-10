@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV 'C:\Users\dream\OneDrive\Desktop\IT勉強系\Python勉強\投資アプリ\株価分析アプリ\stock-analyzer\.venv'
+set -gx VIRTUAL_ENV 'C:\Users\Owner\Desktop\Python\投資アプリ\.venv'
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/"Scripts $PATH

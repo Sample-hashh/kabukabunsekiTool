@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set "VIRTUAL_ENV=C:\Users\dream\OneDrive\Desktop\IT勉強系\Python勉強\投資アプリ\株価分析アプリ\stock-analyzer\.venv"
+set "VIRTUAL_ENV=C:\Users\Owner\Desktop\Python\投資アプリ\.venv"
 
 if not defined PROMPT set PROMPT=$P$G
 
