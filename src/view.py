@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-from config.tickers import get_nikkei_tickers
+from config.tickers import get_nikkei_tickers, test_get_nikkei_tickers
 
 from src.fetch_data import fetch_stock_data
 from src.indicators import add_moving_average
@@ -16,7 +16,7 @@ def view_GCDC() -> pd.DataFrame:
 
   # GC・DCで最終的に4種類に並び替えられたDFのリストを格納するリスト
   signal_list = []
-  NIKEIS = get_nikkei_tickers()
+  NIKEIS = test_get_nikkei_tickers()
   results = []
 
   for ticker, name in NIKEIS.items():
