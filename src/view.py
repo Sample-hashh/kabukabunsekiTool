@@ -1,6 +1,6 @@
 import pandas as pd
 
-from config.tickers import get_nikkei_tickers
+from config.tickers import get_nikkei_tickers, test_get_nikkei_tickers
 
 from src.fetch_data import fetch_stock_data
 from src.indicators import add_moving_average
@@ -33,7 +33,10 @@ def View4_GCDC(view4_df: pd.DataFrame) -> list:
 
 def view_GCDC() -> pd.DataFrame:
   """ゴールデンクロスとデッドクロスを判定する"""
-  NIKEIS = get_nikkei_tickers()
+
+  # GC・DCで最終的に4種類に並び替えられたDFのリストを格納するリスト
+  signal_list = []
+  NIKEIS = test_get_nikkei_tickers()
   results = []
 
   for ticker, name in NIKEIS.items():
@@ -73,7 +76,7 @@ def view_GCDC() -> pd.DataFrame:
   pd.set_option("display.max_columns", None)
   # 横幅を広げる
   pd.set_option("display.width", 2000) 
-
+  # リストをデータフレームに変換
   result_df = pd.DataFrame(results)
 
   df_volumeList = View4_GCDC(result_df)

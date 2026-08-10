@@ -1,26 +1,59 @@
+import yfinance as yf
 import pandas as pd
-import streamlit as st
-from config.tickers import (get_nikkei_tickers,test_get_nikkei_tickers)
-from src.fetch_data import fetch_stock_data
-from src.indicators import (
-    add_moving_average,
-
-)
-from src.signals import detect_golden_cross
-from src.signals import detect_dead_cross
-
-#日経225を取得
-# NIKEI = get_nikkei_tickers()
-NIKEI = test_get_nikkei_tickers()
 
 
+# テストする銘柄
+TICKERS = {
+    "7203.T": "トヨタ自動車",
+    "8306.T": "三菱UFJフィナンシャル・グループ",
+    "9432.T": "NTT",
+}
 
 
-df = fetch_stock_data(NIKEI[1])
-df = add_moving_average(df)
+def fetch_stock_data(ticker):
+    """株価データ取得"""
 
-df = detect_golden_cross(df)
-df = detect_dead_cross(df)
+    df = yf.download(
+        ticker,
+        period="1mo",   # 1か月分取得
+        progress=False
+    )
 
-print(df.tail(5))
+    return df
 
+
+def main():
+
+    for ticker, name in TICKERS.items():
+
+        print("\n==============================")
+        print(f"{name} ({ticker})")
+        print("==============================")
+
+
+        df = fetch_stock_data(ticker)
+
+
+        # 取得確認
+        if df.empty:
+            print("データ取得失敗")
+            continue
+
+
+        print("取得成功")
+        print(f"件数 : {len(df)}件")
+        print()
+
+
+        # 最新5件表示
+        print(df.tail())
+
+
+        print()
+        print("カラム")
+        print(df.columns)
+
+
+
+if __name__ == "__main__":
+    main()

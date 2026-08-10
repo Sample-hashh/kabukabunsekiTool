@@ -1,0 +1,17 @@
+df_signal = result_df[result_df[signal]]
+
+
+
+①result_df[signal]
+結果として下記になる。
+
+行抽出
+result_df[
+    0     True
+    1    False
+    2     True
+]
+・seiresを返す。行とindexが紐づいている
+・df[Boole値]はTrueだったら行を残す設定になる。
+・DataFrame[ブール値] は Trueの行だけ残すフィルタリング になります。
+
