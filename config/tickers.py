@@ -3,7 +3,7 @@ import pandas as pd
 def get_nikkei_tickers() -> None:
 # CSV読み込み（タブ区切りの場合）
     df = pd.read_csv(
-    r"data\nikkei225.csv",
+    "data/nikkei225.csv",
     encoding="cp932",
     sep=","
 )

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from config.tickers import get_nikkei_tickers, test_get_nikkei_tickers
+from config.tickers import get_nikkei_tickers
 
 from src.fetch_data import fetch_stock_data
 from src.indicators import add_moving_average
