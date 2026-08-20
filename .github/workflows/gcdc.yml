@@ -2,7 +2,7 @@ name: GCDCメール自動送信
 
 on:
   schedule:
-    - cron: "35 6 * * *"
+    - cron: "50 13 * * *"
   workflow_dispatch:
 
 jobs:
