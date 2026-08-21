@@ -2,7 +2,7 @@ name: GCDCメール自動送信
 
 on:
   schedule:
-    - cron: "50 13 * * *"
+    - cron: "50 3 * * *"
   workflow_dispatch:
 
 jobs:
@@ -20,12 +20,6 @@ jobs:
 
       - name: ライブラリをインストール
         run: pip install -r requirements.txt
-
-      - name: ファイル確認
-        run: |
-          pwd
-          echo "=== files ==="
-          find . -maxdepth 3 -type f
 
       - name: GCDCメールを送信
         env:
