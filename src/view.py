@@ -31,6 +31,8 @@ def View4_GCDC(view4_df: pd.DataFrame) -> list:
      view4 = view4_df[view4_df[vt] == True]
      # 表示する列だけに絞る
      view4 = view4[display_columns]
+     # 終値を小数第1位まで表示
+     view4["終値"] = view4["終値"].round(1)
      # 出来高順に並び替える
      df_volume = Volume_sorted(view4)
      view4_dfs.append(df_volume)
