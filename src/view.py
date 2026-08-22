@@ -60,14 +60,7 @@ def view_GCDC() -> pd.DataFrame:
         "銘柄": ticker,
         "銘柄名": latest["name"],
         "終値": latest["Close"],
-        "出来高": latest["Volume"],
-        "MA5": latest["MA5"],
-        "MA25": latest["MA25"],
-        "MA75": latest["MA75"],
-        "ゴールデンクロス_5日＆25日": latest["GC_5and25"],
-        "ゴールデンクロス_25日＆75日": latest["GC_25and75"],
-        "デッドクロス_5日＆25日": latest["DC_5and25"],
-        "デッドクロス_25日＆75日": latest["DC_25and75"],        
+        "出来高": latest["Volume"],      
       }
       )
   # 全行表示する
