@@ -18,10 +18,21 @@ def Volume_sorted(result_df: pd.DataFrame) -> pd.DataFrame:
 def View4_GCDC(view4_df: pd.DataFrame) -> list:
   """GCDC4種類のデータフレーム結果をリストに格納して返却す"""
   viewType = ['ゴールデンクロス_5日＆25日', 'ゴールデンクロス_25日＆75日', 'デッドクロス_5日＆25日', 'デッドクロス_25日＆75日']
+  # 表示したい列
+  display_columns = [
+      "銘柄",
+      "銘柄名",
+      "終値",
+      "出来高"
+  ]
   # 4種類の結果を格納するデータフレームリスト
   view4_dfs = []
   for vt in viewType:
      view4 = view4_df[view4_df[vt] == True]
+     # 表示する列だけに絞る
+     view4 = view4[display_columns]
+     # 終値を小数第1位まで表示
+     view4["終値"] = view4["終値"].round(1)
      # 出来高順に並び替える
      df_volume = Volume_sorted(view4)
      view4_dfs.append(df_volume)
